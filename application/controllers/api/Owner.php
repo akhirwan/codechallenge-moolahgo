@@ -36,15 +36,17 @@ class Owner extends REST_Controller {
 
 	    	$response["status"] = 0;
 	    	$response["message"] = "All fields are needed";
+	    	$response["referralcode"] = "";
 
 	    }
 
 	    // parameters insert
+	    $code = $this->app_model->generate_code(); // get code with generate random string
 	    $owner = [
 		    "name" 	 		=> $name,
 	        "email"  		=> $email,
 	        "mobile" 		=> $mobile,
-	        "referralcode" 	=> $this->app_model->generate_code(), // get code with generate random string
+	        "referralcode" 	=> $code,
 	        "status" 		=> 1,
 	        "created_at" 	=> date('Y-m-d H:i:s'),
 	    ];
@@ -54,6 +56,7 @@ class Owner extends REST_Controller {
 			// insert is successed
 			$response["status"] = 1;
 	    	$response["message"] = "New owner code has been created";
+	    	$response["referralcode"] = $code;
 
 		}else{
 
@@ -62,6 +65,7 @@ class Owner extends REST_Controller {
 
 			$response["status"] = 0;
 	    	$response["message"] = "Failed to create new owner code";
+	    	$response["referralcode"] = "";
 
 		}
 

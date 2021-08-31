@@ -1,5 +1,5 @@
 ###
-POST http://localhost/codechallenge-moolahgo/api/owner
+POST http://localhost/codechallenge-moolahgo-service/api/owner
 Content-Type: application/json
 Accept: application/json
 
@@ -10,7 +10,7 @@ Accept: application/json
 }
 
 ###
-POST http://localhost/codechallenge-moolahgo/api/process
+POST http://localhost/codechallenge-moolahgo-service/api/process
 Content-Type: application/json
 Accept: application/json
 
