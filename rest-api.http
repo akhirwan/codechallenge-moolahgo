@@ -1,0 +1,19 @@
+###
+POST http://localhost/codechallenge-moolahgo/api/owner
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "dudunk",
+  "email": "haji.dudunk@gmail.com",
+  "mobile": "0987655"
+}
+
+###
+POST http://localhost/codechallenge-moolahgo/api/process
+Content-Type: application/json
+Accept: application/json
+
+{
+  "referral_code": "3X532B"
+}
