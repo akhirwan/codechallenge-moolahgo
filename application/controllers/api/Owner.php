@@ -26,9 +26,9 @@ class Owner extends REST_Controller {
 
 		$name = isset($data->name) ? $data->name : "";
 	    $email = isset($data->email) ? $data->email : "";
-	    $mobile = isset($data->mobile) ? $data->mobile : "";
+	    $phone = isset($data->phone) ? $data->phone : "";
 
-	    if(empty($name) && empty($email) && empty($mobile)) {
+	    if(empty($name) && empty($email) && empty($phone)) {
 
 	    	// we have some empty field
 
@@ -38,36 +38,39 @@ class Owner extends REST_Controller {
 	    	$response["message"] = "All fields are needed";
 	    	$response["referralcode"] = "";
 
+	    } else {
+
+		    // parameters insert
+		    $code = $this->app_model->generate_code(); // get code with generate random string
+		    $owner = [
+			    "name" 	 		=> $name,
+		        "email"  		=> $email,
+		        "phone" 		=> $phone,
+		        "referralcode" 	=> $code,
+		        "status" 		=> 1,
+		        "created_at" 	=> date('Y-m-d H:i:s'),
+		    ];
+
+			if($this->app_model->post_code_owner($owner)){
+
+				// insert is successed
+				$response["status"] = 1;
+		    	$response["message"] = "New referral code has been created";
+		    	$response["referralcode"] = $code;
+
+			}else{
+
+				// insert is failed
+				$http_codes = REST_Controller::HTTP_INTERNAL_SERVER_ERROR;
+
+				$response["status"] = 0;
+		    	$response["message"] = "Failed to create new owner code";
+		    	$response["referralcode"] = "";
+
+			}
+
 	    }
 
-	    // parameters insert
-	    $code = $this->app_model->generate_code(); // get code with generate random string
-	    $owner = [
-		    "name" 	 		=> $name,
-	        "email"  		=> $email,
-	        "mobile" 		=> $mobile,
-	        "referralcode" 	=> $code,
-	        "status" 		=> 1,
-	        "created_at" 	=> date('Y-m-d H:i:s'),
-	    ];
-
-		if($this->app_model->post_code_owner($owner)){
-
-			// insert is successed
-			$response["status"] = 1;
-	    	$response["message"] = "New owner code has been created";
-	    	$response["referralcode"] = $code;
-
-		}else{
-
-			// insert is failed
-			$http_codes = REST_Controller::HTTP_INTERNAL_SERVER_ERROR;
-
-			$response["status"] = 0;
-	    	$response["message"] = "Failed to create new owner code";
-	    	$response["referralcode"] = "";
-
-		}
 
 		// api response
 	    $this->response($response, $http_codes);

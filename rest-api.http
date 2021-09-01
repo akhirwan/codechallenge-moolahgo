@@ -6,7 +6,7 @@ Accept: application/json
 {
   "name": "dudunk",
   "email": "haji.dudunk@gmail.com",
-  "mobile": "0987655"
+  "phone": "0987655"
 }
 
 ###
