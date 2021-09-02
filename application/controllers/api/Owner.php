@@ -21,67 +21,6 @@ class Owner extends REST_Controller {
 
 	}
 
-	public function index_get() {
-
-		// default variable
-		$response = [];
-		$http_codes = REST_Controller::HTTP_OK;
-
-		$name = "";
-	    $email = "";
-	    $phone = "";
-    	if (isset($_GET['name'])) $name = $_GET['name'];
-    	if (isset($_GET['email'])) $email = $_GET['email'];
-    	if (isset($_GET['phone'])) $phone = $_GET['phone'];
-
-		if(empty($name) && empty($email) && empty($phone)) {
-
-	    	// we have some empty field
-
-	    	// $http_codes = REST_Controller::HTTP_NOT_FOUND;
-
-	    	$response["status"] = 0;
-	    	$response["message"] = "All fields are needed";
-	    	$response["referralcode"] = "";
-
-	    } else {
-
-		    // parameters insert
-		    $code = $this->app_model->generate_code(); // get code with generate random string
-		    $owner = [
-			    "name" 	 		=> $name,
-		        "email"  		=> $email,
-		        "phone" 		=> $phone,
-		        "referralcode" 	=> $code,
-		        "status" 		=> 1,
-		        "created_at" 	=> date('Y-m-d H:i:s'),
-		    ];
-
-			if($this->app_model->post_code_owner($owner)){
-
-				// insert is successed
-				$response["status"] = 1;
-		    	$response["message"] = "New referral code has been created";
-		    	$response["referralcode"] = $code;
-
-			}else{
-
-				// insert is failed
-				// $http_codes = REST_Controller::HTTP_INTERNAL_SERVER_ERROR;
-
-				$response["status"] = 0;
-		    	$response["message"] = "Failed to create new owner code";
-		    	$response["referralcode"] = "";
-
-			}
-
-	    }
-
-		// api response
-		$this->response($response, $http_codes);
-
-	}
-
 	public function index_post() {
 
 		// default variable

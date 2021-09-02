@@ -23,6 +23,11 @@ class App_model extends CI_Model {
 	    return $query->row();
 
 	}
+	
+	public function put_code_owner($where = [], $data = []){
+		$this->db->where($where);
+		$this->db->update("tbl_referralcode", $data);
+	}
 
 	public function get_code() {
 

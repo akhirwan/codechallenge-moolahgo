@@ -21,41 +21,6 @@ class Process extends REST_Controller {
 
 	}
 
-	public function index_get() {
-
-		// default variable
-		$response = [];
-		$http_codes = REST_Controller::HTTP_OK;
-
-		$code = '000000';
-    	if (isset($_GET['referral_code'])) $code = $_GET['referral_code'];
-
-		// call query in model
-		$owner = $this->app_model->get_code_owner($code);
-
-		if (empty($owner)) {
-
-			// undefined referral code
-			// $http_codes = REST_Controller::HTTP_NOT_FOUND;
-
-	    	$response["status"] = 0;
-	    	$response["message"] = "Code not found";
-	    	$response["data"] = $owner;
-
-		} else {
-
-			// found referral code
-			$response["status"] = 1;
-	    	$response["message"] = "Code owner detail is found";
-	    	$response["data"] = $owner;				
-
-		}
-
-		// api response
-		$this->response($response, $http_codes);
-
-	}
-
 	public function index_post() {
 
 		// default variable
@@ -68,7 +33,7 @@ class Process extends REST_Controller {
 		if (empty($data->referral_code)) {
 
 			// empty field
-			$http_codes = REST_Controller::HTTP_NOT_FOUND;
+			// $http_codes = REST_Controller::HTTP_NOT_FOUND;
 
 	    	$response["status"] = 0;
 	    	$response["message"] = "All fields are needed";
@@ -82,7 +47,7 @@ class Process extends REST_Controller {
 			if (empty($owner)) {
 
 				// undefined referral code
-				$http_codes = REST_Controller::HTTP_NOT_FOUND;
+				// $http_codes = REST_Controller::HTTP_NOT_FOUND;
 
 		    	$response["status"] = 0;
 		    	$response["message"] = "Code not found";
