@@ -15,5 +15,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "referral_code": "3X532B"
+  "referral_code": "DSNZLL"
 }
+
+
+###
+GET http://localhost/codechallenge-moolahgo-service/api/process?referral_code=DSNZLL
+Content-Type: application/json
+Accept: application/json
